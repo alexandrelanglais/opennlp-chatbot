@@ -10,4 +10,14 @@
 	<name>OpenNLP Chatbot Wikipedia Library</name>
 	<description>Crawls and parse wikipedia pages</description>
 	<url>https://github.com/MER-C/wiki-java</url>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
 </project>

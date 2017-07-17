@@ -8,18 +8,15 @@
 	<name>OpenNLP Chatbot</name>
 	<description>A chatbot in french using OpenNLP</description>
 	<url>https://github.com/alexandrelanglais/opennlp-chatbot</url>
-	<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.5.1</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.2.RELEASE</version>
+	</parent>
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
 	<modules>
 		<module>opennlp-chatbot-main</module>
 		<module>opennlp-chatbot-trainer</module>
