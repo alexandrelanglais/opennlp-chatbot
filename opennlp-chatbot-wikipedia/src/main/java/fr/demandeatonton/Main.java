@@ -9,16 +9,17 @@ import java.util.regex.Pattern;
 import org.wikipedia.Wiki;
 
 public class Main {
+   private static Wiki wiki = new Wiki();
 
    public static void main(String[] args) throws IOException {
-      Wiki wiki = new Wiki();
 
       // Page au hasard
       String random = wiki.random();
+      random = "Jean_Moulin";
 
       // données JSON
       String export = wiki.export(random);
-      // System.out.println(export);
+      System.out.println(export);
 
       // Liens de la page
       String[] linksOnPage = wiki.getLinksOnPage(random);
@@ -37,24 +38,32 @@ public class Main {
 
    }
 
-   private static String[] getNouns(String pageText) {
+   private static String[] getNouns(String pageText) throws IOException {
       List<String> nouns = new ArrayList<>();
       Pattern patt = null;
       Matcher m = null;
-      // Pattern patt = Pattern.compile("'''''(.+?)'''''");
-      // Matcher m = patt.matcher(pageText);
-      // while (m.find()) {
-      // String text = m.group(1);
-      // nouns.add(text);
-      // }
-      //
-      patt = Pattern.compile("'''(.+?)'''");
+
+      patt = Pattern.compile("\\[\\[(.+?)\\]\\]");
       m = patt.matcher(pageText);
       while (m.find()) {
          String text = m.group(1);
-         nouns.add(text);
+
+         if (text.indexOf('|') < 0) {
+            if (wikiPageContainsBirthDate(text)) {
+               nouns.add(text);
+            }
+         }
       }
       return nouns.toArray(new String[nouns.size()]);
+   }
+
+   private static boolean wikiPageContainsBirthDate(String text) throws IOException {
+      String pageText = wiki.getPageText(text);
+      if (pageText != null && pageText.length() > 0) {
+         return (pageText.toLowerCase().indexOf("date de naissance") >= 0);
+      } else {
+         return false;
+      }
    }
 
 }
